@@ -1,0 +1,48 @@
+from django.db import models
+from django.contrib.auth.models import User
+import json
+# Create your models here.
+
+class Player(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bot = models.BooleanField(default=False)
+
+class Deck(models.Model):
+    location = models.CharField(default='', max_length=2)
+    state = models.BooleanField(default=True) # по дефолту "живой"
+
+class Ship(models.Model):
+    class Meta:
+        abstract = True
+    state = models.BooleanField(default=True) # по дефолту "живой"
+
+class ShipOneDeck(Ship):
+    deck1 = models.ForeignKey(Deck, on_delete=models.CASCADE)
+
+class ShipTwoDeck(ShipOneDeck):
+    deck2 = models.ForeignKey(Deck, on_delete=models.CASCADE)
+
+class ShipThreeDeck(ShipTwoDeck):
+    deck3 = models.ForeignKey(Deck, on_delete=models.CASCADE)
+
+class ShipFourDeck(ShipFourDeck):
+    deck2 = models.ForeignKey(Deck, on_delete=models.CASCADE)
+
+
+
+class Field(models.Model):
+    empty_field = {}
+    for i in [1,2,3,4,5,6,7,8,9,10]:
+        for a in ['a','b','c','d','e','f','g','h','i','j']:
+            empty_field[(i,a)]=''
+    empty_field = json.dumps(empty_field)
+
+    map = models.TextField(default=empty_field)class ShipTwoDect(ShipOneDeck):
+    deck2 = models.ForeignKey(Deck, on_delete=models.CASCADE)
+
+
+    ship1d1 = models.ForeignKey(ShipOneDeck, on_delete=models.CASCADE)
+
+class Game(models.Model):
+    player1 = models.ForeignKey(Player, on_delete=models.CASCADE)
+    player2 = models.ForeignKey(Player, on_delete=models.CASCADE)

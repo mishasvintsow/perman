@@ -1,0 +1,31 @@
+{% extends 'main.html' %}
+
+{% block battle %}
+
+<div><h2> Добро пожаловать, {{request.user.username}}, в Морской бой!</h2></div>
+
+<button><a href="{% url 'battle/create/' %}"> Создать новую игру! </a></button>
+
+<div style="margin-top : 20px">
+    <table border="1">
+        <tr>
+            <td>ID</td>
+            <td>player1</td>
+            <td>player2</td>
+            <td>Время создания</td>
+            <td></td>
+        </tr>
+        
+        {% for game in games %}
+        <tr>
+            <td>{{game.id}}</td>
+            <td>{{game.side1.player.user.username}}</td>
+            <td>{{game.side2.player.user.username}}</td>
+            <td>{{game.time}}</td>
+            <td>Играть!</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+    
+{% endblock %}

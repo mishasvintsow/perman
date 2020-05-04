@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<h3>Вы еще не вошли на сайт!</h3> 
+<h4>Для продолжения войдите в свой аккаунт или зарегистируйтесь.</h4>
+
+{% if request.user.is_authenticated %}
+<div>
+<button><a href={% url 'logout'%}> Выйти </a></button>
+</div>
+{% else %}
+<div>
+<div>
+<button><a href={% url 'login'%}> Войти </a></button>
+</div>
+
+<div>
+<button><a href={% url 'reg'%}> Зарегистрироваться </a></button>
+</div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+
